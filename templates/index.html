@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>5月7日深圳湾徒步活动报名</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f7f7f7;
+            color: #333;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        .header {
+            text-align: center;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #eee;
+        }
+        .header h1 {
+            margin: 0;
+            font-size: 24px;
+            color: #07C160;
+        }
+        .header p {
+            margin: 10px 0 0;
+            color: #666;
+            font-size: 14px;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            margin-bottom: 6px;
+            font-weight: bold;
+            font-size: 14px;
+        }
+        input[type="text"],
+        input[type="tel"],
+        select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 16px;
+            box-sizing: border-box;
+        }
+        .radio-group {
+            display: flex;
+            gap: 15px;
+        }
+        .radio-group label {
+            font-weight: normal;
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+        }
+        .radio-group input {
+            margin-right: 5px;
+        }
+        .error {
+            color: #f44336;
+            font-size: 12px;
+            margin-top: 5px;
+            display: none;
+        }
+        button {
+            background-color: #07C160;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            font-size: 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            width: 100%;
+            font-weight: bold;
+        }
+        button:hover {
+            background-color: #06ad56;
+        }
+        .info-box {
+            background-color: #f0f9ff;
+            border-left: 4px solid #07C160;
+            padding: 10px 15px;
+            margin-bottom: 20px;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+        .team-status {
+            margin-top: 15px;
+            background-color: #f9f9f9;
+            padding: 10px;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+        .team-counts {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 10px;
+        }
+        .team-count {
+            background-color: #e9e9e9;
+            padding: 5px 10px;
+            border-radius: 4px;
+            font-size: 13px;
+        }
+        .full {
+            background-color: #ffebee;
+            color: #d32f2f;
+        }
+        .success-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0, 0, 0, 0.7);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            display: none;
+        }
+        .success-message {
+            background-color: white;
+            padding: 30px;
+            border-radius: 8px;
+            text-align: center;
+            width: 80%;
+            max-width: 400px;
+        }
+        .success-message h2 {
+            color: #07C160;
+            margin-top: 0;
+        }
+        .captain-badge {
+            display: inline-block;
+            background-color: #ff9800;
+            color: white;
+            font-size: 12px;
+            padding: 2px 6px;
+            border-radius: 3px;
+            margin-left: 5px;
+        }
+        .loading {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(255, 255, 255, 0.8);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 999;
+            display: none;
+        }
+        .loading-spinner {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #07C160;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>5月7日深圳湾徒步活动报名</h1>
+            <p>5月7日(周三) 下午 | 10公里徒步 | 5:00公司楼下集合拍照 | 5:10出发</p>
+        </div>
+
+        <div class="info-box">
+            <p>请填写以下信息完成报名。每组6-8人，可自由组队。</p>
+        </div>
+
+        <form id="registrationForm">
+            <div class="form-group">
+                <label for="name">姓名 *</label>
+                <input type="text" id="name" name="name" required>
+                <div class="error" id="nameError">请输入姓名</div>
+            </div>
+
+            <div class="form-group">
+                <label>性别 *</label>
+                <div class="radio-group">
+                    <label><input type="radio" name="gender" value="男" required> 男</label>
+                    <label><input type="radio" name="gender" value="女"> 女</label>
+                </div>
+                <div class="error" id="genderError">请选择性别</div>
+            </div>
+
+            <div class="form-group">
+                <label for="phone">手机号 *</label>
+                <input type="tel" id="phone" name="phone" required>
+                <div class="error" id="phoneError">请输入有效的手机号</div>
+            </div>
+
+            <div class="form-group">
+                <label for="team">选择组别 *</label>
+                <select id="team" name="team" required>
+                    <option value="">请选择组别</option>
+                </select>
+                <div class="error" id="teamError">请选择组别</div>
+                <div class="team-status">
+                    <div>组别情况：</div>
+                    <div class="team-counts" id="teamCounts"></div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>是否担任队长 *</label>
+                <div class="radio-group">
+                    <label><input type="radio" name="isCaptain" value="true" id="captainYes"> 是</label>
+                    <label><input type="radio" name="isCaptain" value="false" id="captainNo" checked> 否</label>
+                </div>
+                <div class="error" id="captainError">该组已有队长</div>
+            </div>
+
+            <button type="submit" id="submitBtn">提交报名</button>
+        </form>
+    </div>
+
+    <div class="success-overlay" id="successOverlay">
+        <div class="success-message">
+            <h2>报名成功！</h2>
+            <p id="confirmationMessage"></p>
+            <button onclick="document.getElementById('successOverlay').style.display='none';">确定</button>
+        </div>
+    </div>
+
+    <div class="loading" id="loadingOverlay">
+        <div class="loading-spinner"></div>
+    </div>
+
+    <script>
+        // 显示加载中
+        function showLoading() {
+            document.getElementById('loadingOverlay').style.display = 'flex';
+        }
+
+        // 隐藏加载中
+        function hideLoading() {
+            document.getElementById('loadingOverlay').style.display = 'none';
+        }
+
+        // 获取团队数据
+        async function fetchTeams() {
+            showLoading();
+            try {
+                const response = await fetch('/api/teams');
+                const teams = await response.json();
+                return teams;
+            } catch (error) {
+                console.error('Error fetching teams:', error);
+                return [];
+            } finally {
+                hideLoading();
+            }
+        }
+
+        // 初始化组别下拉菜单和状态显示
+        async function initTeams() {
+            const teams = await fetchTeams();
+            const teamSelect = document.getElementById('team');
+            const teamCounts = document.getElementById('teamCounts');
+
+            // 清空现有选项和状态
+            teamSelect.innerHTML = '<option value="">请选择组别</option>';
+            teamCounts.innerHTML = '';
+
+            // 添加组别选项和显示状态
+            teams.forEach(team => {
+                const memberCount = team.member_count;
+                const maxMembers = team.max_members;
+                const isFull = memberCount >= maxMembers;
+
+                // 添加选项（如果未满）
+                if (!isFull) {
+                    const option = document.createElement('option');
+                    option.value = team.team_id;
+                    option.textContent = `${team.team_name}组 (${memberCount}/${maxMembers}人)`;
+                    if (team.captain) {
+                        option.textContent += ' ★已有队长';
+                    }
+                    teamSelect.appendChild(option);
+                }
+
+                // 显示状态
+                const statusElement = document.createElement('div');
+                statusElement.className = `team-count ${isFull ? 'full' : ''}`;
+                statusElement.textContent = `${team.team_name}组: ${memberCount}/${maxMembers}`;
+                if (team.captain) {
+                    const captainBadge = document.createElement('span');
+                    captainBadge.className = 'captain-badge';
+                    captainBadge.textContent = '队长:' + team.captain;
+                    statusElement.appendChild(captainBadge);
+                }
+                teamCounts.appendChild(statusElement);
+            });
+
+            // 存储团队数据到全局变量
+            window.teamData = teams.reduce((acc, team) => {
+                acc[team.team_id] = team;
+                return acc;
+            }, {});
+        }
+
+        // 更新队长选择状态
+        function updateCaptainStatus() {
+            const teamSelect = document.getElementById('team');
+            const captainYes = document.getElementById('captainYes');
+            const captainNo = document.getElementById('captainNo');
+            const captainError = document.getElementById('captainError');
+
+            const selectedTeamId = teamSelect.value;
+
+            if (selectedTeamId && window.teamData && window.teamData[selectedTeamId] && window.teamData[selectedTeamId].captain) {
+                captainYes.disabled = true;
+                captainNo.checked = true;
+                captainError.style.display = 'block';
+            } else {
+                captainYes.disabled = false;
+                captainError.style.display = 'none';
+            }
+        }
+
+        // 验证表单
+        function validateForm() {
+            let isValid = true;
+
+            // 验证姓名
+            const name = document.getElementById('name').value.trim();
+            if (!name) {
+                document.getElementById('nameError').style.display = 'block';
+                isValid = false;
+            } else {
+                document.getElementById('nameError').style.display = 'none';
+            }
+
+            // 验证性别
+            const gender = document.querySelector('input[name="gender"]:checked');
+            if (!gender) {
+                document.getElementById('genderError').style.display = 'block';
+                isValid = false;
+            } else {
+                document.getElementById('genderError').style.display = 'none';
+            }
+
+            // 验证手机号
+            const phone = document.getElementById('phone').value.trim();
+            if (!phone || !/^1[3-9]\d{9}$/.test(phone)) {
+                document.getElementById('phoneError').style.display = 'block';
+                isValid = false;
+            } else {
+                document.getElementById('phoneError').style.display = 'none';
+            }
+
+            // 验证组别
+            const team = document.getElementById('team').value;
+            if (!team) {
+                document.getElementById('teamError').style.display = 'block';
+                isValid = false;
+            } else {
+                document.getElementById('teamError').style.display = 'none';
+            }
+
+            return isValid;
+        }
+
+        // 提交表单
+        document.getElementById('registrationForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+
+            if (!validateForm()) {
+                return;
+            }
+
+            const name = document.getElementById('name').value.trim();
+            const gender = document.querySelector('input[name="gender"]:checked').value;
+            const phone = document.getElementById('phone').value.trim();
+            const team_id = document.getElementById('team').value;
+            const isCaptain = document.querySelector('input[name="isCaptain"]:checked').value === 'true';
+
+            const formData = {
+                name,
+                gender,
+                phone,
+                team_id,
+                isCaptain
+            };
+
+            showLoading();
+
+            try {
+                const response = await fetch('/api/register', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(formData)
+                });
+
+                const result = await response.json();
+
+                if (response.ok) {
+                    // 显示成功信息
+                    const confirmationMessage = document.getElementById('confirmationMessage');
+                    const teamName = window.teamData[team_id].team_name;
+                    confirmationMessage.innerHTML = `
+                        <strong>${name}</strong>，您已成功报名<strong>${teamName}组</strong>！<br>
+                        ${isCaptain ? '<strong>您将担任队长</strong><br>' : ''}
+                        请于5月7日(周三)下午5:00在公司楼下集合。
+                    `;
+                    document.getElementById('successOverlay').style.display = 'flex';
+
+                    // 重置表单并更新状态
+                    document.getElementById('registrationForm').reset();
+                    await initTeams();
+                } else {
+                    alert(result.message || '报名失败，请稍后重试');
+                }
+            } catch (error) {
+                console.error('Error registering:', error);
+                alert('报名失败，请稍后重试');
+            } finally {
+                hideLoading();
+            }
+        });
+
+        // 监听组别选择变化
+        document.getElementById('team').addEventListener('change', updateCaptainStatus);
+
+        // 初始化页面
+        window.onload = async function() {
+            await initTeams();
+            updateCaptainStatus();
+        };
+    </script>
+</body>
+</html>
